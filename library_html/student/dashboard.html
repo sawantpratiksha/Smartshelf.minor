@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Dashboard - SmartShelf</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/app.css">
+  <script>var ROOT = '../';</script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><span class="logo">📚</span> SmartShelf</div>
+      <nav class="nav" id="nav">
+        <a href="#home" data-sec="home">🏠 Home</a>
+        <a href="#browse" data-sec="browse">📖 Browse Books</a>
+        <a href="#bookrequests" data-sec="bookrequests">📝 Request a Book</a>
+        <a href="#mybooks" data-sec="mybooks">📚 My Books</a>
+        <a href="#wishlist" data-sec="wishlist">💜 Wishlist</a>
+        <a href="#profile" data-sec="profile">👤 Profile</a>
+      </nav>
+      <div class="side-bottom">
+        <a href="#settings" data-sec="settings">⚙️ Settings</a>
+        <a id="logoutBtn">🚪 Logout</a>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="icon-btn menu" id="menuBtn">☰</button>
+        <h2 id="pageTitle">Home</h2>
+        <button class="icon-btn" id="bell" title="Notifications">🔔<span class="badge" id="bellCount"></span></button>
+        <button class="icon-btn" id="themeBtn" title="Dark / light mode">🌙</button>
+        <div class="user-chip"><span class="avatar" id="avatar"></span><span id="userName"></span></div>
+      </header>
+      <section class="content" id="content"></section>
+    </main>
+  </div>
+
+  <script src="../js/db.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/common.js"></script>
+  <script src="../js/student.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Database Viewer - SmartShelf</title>
+  <style>
+    body { font-family: system-ui, Arial, sans-serif; background: #f5f6fb; color: #141432; margin: 0; padding: 24px; }
+    h1 { margin: 0 0 4px; }
+    .top { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin: 12px 0 20px; }
+    a, button { background: #6d4aff; color: #fff; border: none; padding: 10px 18px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; }
+    button.red { background: #e5484d; }
+    .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+    .tabs button { background: #fff; color: #141432; border: 1.5px solid #ddd; }
+    .tabs button.on { background: #6d4aff; color: #fff; border-color: #6d4aff; }
+    .box { background: #fff; border-radius: 14px; padding: 18px; box-shadow: 0 4px 16px rgba(0,0,0,.08); overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; font-size: 14px; }
+    th { background: #efeafe; text-align: left; padding: 9px 12px; white-space: nowrap; }
+    td { padding: 9px 12px; border-top: 1px solid #eee; max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .note { color: #666; font-size: 14px; margin: 0 0 12px; }
+    .empty { padding: 30px; text-align: center; color: #888; }
+  </style>
+</head>
+<body>
+  <h1>🗄️ Database Viewer</h1>
+  <p class="note">This page shows everything saved in the library database. Click a table name to see its rows.</p>
+
+  <div class="top">
+    <a href="index.html">← Back to project</a>
+    <button id="refresh">🔄 Refresh</button>
+    <button class="red" id="reset">Reset database</button>
+  </div>
+
+  <div class="tabs" id="tabs"></div>
+  <div class="box"><p class="note" id="info"></p><div id="out"></div></div>
+
+  <script src="js/db.js"></script>
+  <script>
+    const info = {
+      students:      'Every registered student (new registrations appear here).',
+      librarians:    'The librarian account.',
+      books:         'All books. available_copies goes down when a librarian approves a borrow request or issues a book.',
+      loans:         'Borrow requests and issued/returned books. book_id and student_id match the "id" of the books and students tables.',
+      book_requests: 'Titles students want the library to acquire. Librarians can notify students when a matching book is available.',
+      wishlist:      'Books students saved with the heart button.',
+      notifications: 'Messages shown in the bell icon.',
+    };
+    let current = 'students';
+
+    function esc(s) { return String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+    function show() {
+      document.getElementById('tabs').innerHTML = Object.keys(info).map(t =>
+        `<button class="${t === current ? 'on' : ''}" data-t="${t}">${t} (${DB.get(t).length})</button>`).join('');
+      document.querySelectorAll('[data-t]').forEach(b => b.onclick = () => { current = b.dataset.t; show(); });
+
+      document.getElementById('info').textContent = info[current];
+      const rows = DB.get(current);
+      if (!rows.length) { document.getElementById('out').innerHTML = '<div class="empty">This table is empty.</div>'; return; }
+      const cols = Object.keys(rows[0]);
+      document.getElementById('out').innerHTML = '<table><tr>' + cols.map(c => `<th>${esc(c)}</th>`).join('') + '</tr>' +
+        rows.map(r => '<tr>' + cols.map(c => {
+          let v = r[c]; if (String(v).startsWith('data:image')) v = '(photo)';
+          return `<td title="${esc(v)}">${esc(v)}</td>`;
+        }).join('') + '</tr>').join('') + '</table>';
+    }
+
+    document.getElementById('refresh').onclick = show;
+    document.getElementById('reset').onclick = () => { if (confirm('Delete ALL data and restore the demo data?')) DB.reset(); };
+    show();
+  </script>
+</body>
+</html>

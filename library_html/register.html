@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Register - SmartShelf</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/auth.css">
+  <script>var ROOT = '';</script>
+</head>
+<body>
+  <div class="center">
+    <div class="card wide">
+      <div class="logo">📚</div>
+      <h2>Create student account</h2>
+      <p class="sub">Register once, then login to borrow books.</p>
+
+      <form id="registerForm">
+        <div class="form-grid">
+          <div><label>Full Name</label><input id="full_name" placeholder="e.g. Aditi Sharma" required></div>
+          <div><label>Student ID</label><input id="student_id" placeholder="e.g. STU2024001" required></div>
+          <div><label>Email</label><input id="email" type="email" placeholder="you@college.edu" required></div>
+          <div><label>Phone</label><input id="phone" placeholder="e.g. 9876543210" required></div>
+          <div><label>Department</label>
+            <select id="department" required>
+              <option value="">Select department</option>
+              <option>Computer Science</option><option>Information Technology</option>
+              <option>Electronics</option><option>Mechanical</option><option>Civil</option>
+              <option>Electrical</option><option>Other</option>
+            </select></div>
+          <div><label>Year / Division</label>
+            <select id="year" required>
+              <option value="">Select year</option>
+              <option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option>
+            </select></div>
+          <div><label>Username</label><input id="username" placeholder="Choose a username" required minlength="3"></div>
+          <div></div>
+          <div><label>Password</label><input id="password" type="password" placeholder="Min 6 characters" required minlength="6"></div>
+          <div><label>Confirm Password</label><input id="confirm" type="password" placeholder="Repeat password" required></div>
+        </div>
+        <button class="btn btn-primary" type="submit">Register</button>
+        <div id="msg" class="msg"></div>
+      </form>
+
+      <p class="switch">Already registered? <a href="login.html">Login here</a></p>
+      <a class="back" href="index.html">← Back to home</a>
+    </div>
+  </div>
+  <script src="js/db.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

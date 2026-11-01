@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SmartShelf - Your college library, organized</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/auth.css">
+  <script>var ROOT = '';</script>
+</head>
+<body>
+  <!-- WELCOME PAGE -->
+  <div class="nav">
+    <div class="brand"><span class="logo">📚</span> SmartShelf</div>
+    <div class="cta">
+      <a class="btn btn-ghost" href="login.html">Login</a>
+      <a class="btn btn-primary" href="register.html">Register</a>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div>
+      <h1>Your college library, <span>organized.</span></h1>
+      <p>Browse books, request a borrow, track due dates and manage the whole library - all in one smart, simple place.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="login.html">Student Login</a>
+        <a class="btn btn-ghost" href="login.html?role=librarian">Librarian Login</a>
+      </div>
+      <p style="margin-top:18px;font-size:14px">New here? <a href="register.html">Register as a student →</a></p>
+    </div>
+    <div class="hero-art">
+      <div class="mini-card"><div class="ic">📘</div><h3>Browse Books</h3><p>Search by title, author or ISBN</p></div>
+      <div class="mini-card"><div class="ic">⏰</div><h3>Due Reminders</h3><p>Never miss a return date</p></div>
+      <div class="mini-card"><div class="ic">💜</div><h3>Wishlist</h3><p>Save books to read later</p></div>
+      <div class="mini-card"><div class="ic">📊</div><h3>Librarian Panel</h3><p>Issue, return and manage stock</p></div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="feature">🔎<b>Smart Search</b><span>Filter by category and availability.</span></div>
+    <div class="feature">📚<b>Easy Borrowing</b><span>Request online; the librarian approves each loan.</span></div>
+    <div class="feature">🌙<b>Light &amp; Dark Mode</b><span>Easy on the eyes, day or night.</span></div>
+    <div class="feature">🔒<b>Secure Login</b><span>Passwords are stored as salted hashes.</span></div>
+  </section>
+
+  <footer>SmartShelf · Minor Project · Library Management System · <a href="database_viewer.html" style="font-weight:600">View Database</a></footer>
+  <script src="js/db.js"></script>
+  <script src="js/api.js"></script>
+  <script>
+    // If already logged in, go straight to the dashboard
+    const sess = getSession();
+    if (sess && currentUser(sess)) location.href = sess.role === 'librarian' ? 'admin/dashboard.html' : 'student/dashboard.html';
+  </script>
+</body>
+</html>
